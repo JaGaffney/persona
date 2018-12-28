@@ -34,7 +34,7 @@ class PersonaUI{
 
     static tableFilter() {
         // Declare variables 
-        var input, filter, table, tr, td, i
+        let input, filter, table, tr, td, i
         input = document.getElementById("search-bar")
         filter = input.value.toUpperCase()
         table = document.getElementById("persona-list")
@@ -59,6 +59,6 @@ class PersonaUI{
 document.addEventListener('DOMContentLoaded', PersonaUI.loadPersona)
 
 // Events: Search bar
-document.getElementById('search-bar').addEventListener('keyup', (e) => {
+document.getElementById('search-bar').addEventListener('keyup', () => {
     PersonaUI.tableFilter()
 })
