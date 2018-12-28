@@ -9,24 +9,74 @@ class PersonaUI{
                 let arcana = item
                 let level = info["persona"][item][persona]["data"]["level"]
                 let cost = info["persona"][item][persona]["base_cost"]
-            
-                PersonaUI.createPersona(name, arcana, level, cost)
+
+                let physical = info["persona"][item][persona]["data"]["resistance"]["physical"]
+                let gun = info["persona"][item][persona]["data"]["resistance"]["gun"]
+                let fire = info["persona"][item][persona]["data"]["resistance"]["fire"]
+                let ice = info["persona"][item][persona]["data"]["resistance"]["ice"]
+                let electric = info["persona"][item][persona]["data"]["resistance"]["electric"]
+                let wind = info["persona"][item][persona]["data"]["resistance"]["wind"]
+                let psychic = info["persona"][item][persona]["data"]["resistance"]["nuclear"]
+                let nuclear = info["persona"][item][persona]["data"]["resistance"]["nuclear"]
+                let bless = info["persona"][item][persona]["data"]["resistance"]["bless"]
+                let curse = info["persona"][item][persona]["data"]["resistance"]["curse"]
+
+                PersonaUI.createPersona(name,
+                                        arcana,
+                                        level,
+                                        cost,
+                                        physical,
+                                        gun,
+                                        fire,
+                                        ice,
+                                        electric,
+                                        wind,
+                                        psychic,
+                                        nuclear,
+                                        bless,
+                                        curse)
             }  
         }
     }
 
-    static createPersona(name, arcana, level, cost) {
+    static createPersona(   name,
+                            arcana,
+                            level,
+                            cost,
+                            physical,
+                            gun,
+                            fire,
+                            ice,
+                            electric,
+                            wind,
+                            psychic,
+                            nuclear,
+                            bless,
+                            curse) {
         // get thee id
         const list = document.getElementById('persona-list')
         // declare what type of html you want
         const row = document.createElement('tr')
+
+        while(cost.charAt(0) === '0'){
+            cost = cost.substr(1)
+        }
 
         row.innerHTML = `
             <td>${name}</td>
             <td>${arcana}</td>
             <td>${level}</td>
             <td>¥${cost}</td>
-            <td><a href="#" class="btn btn-danager btn-sm delete">X</a></td>
+            <td>${physical}</td>
+            <td>${gun}</td>
+            <td>${fire}</td>
+            <td>${ice}</td>
+            <td>${electric}</td>
+            <td>${wind}</td>
+            <td>${psychic}</td>
+            <td>${nuclear}</td>
+            <td>${bless}</td>
+            <td>${curse}</td>
         `
 
         list.appendChild(row)
