@@ -1,0 +1,25 @@
+.confidant-img{
+	border-radius: 50%; 
+	height: 6rem;
+	width: 6rem;
+} 
+
+.confidant-button{
+	border: none; 
+	background-color: white;
+	padding: 0;
+	cursor: pointer;
+	height: 6rem;
+	width: 6rem;
+} 
+
+.arcarna-btn{
+	padding:0.4rem;
+	float: left;
+}
+
+
+#arcarna-display{
+	font-size: 1.4rem;
+	width: 100%;
+}

@@ -4,13 +4,16 @@
 	<meta charset="UTF-8">
 	<meta namr="viewport" content="width=device-width,initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edige">
+	<link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css">
-	<title>Persona 5 List</title>
+	<link rel="stylesheet" href="main.css">
+	<title>Persona 5 Database</title>
 </head>
 
 <body>
 	<div class="container mt-4">
+
 		<h1 class="display-4 text-center"><i class="fas fa-mask text-primary"></i> Persona <span class="text-primary">5</span></h1>
 		<hr>
 
@@ -20,23 +23,134 @@
 			</form>
 		</div>
 
-		<table class="table table-striped mt-5">
+		<div class="mt-2">
+			<button id="arcarna-display" class="btn btn-outline-primary mt-4 "><span class="text-primary" id="arcarna-display-+">-</span> Confidant selector</button>
+			<div id="arcarna-table">
+				<div class="arcarna-btn">
+					<button id="Chariot" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Ryuji.png" alt="Chariot" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Death" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Tae.png" alt="Death" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Devil" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Ohya.png" alt="Devil" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Emperor" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Yusuke.png" alt="Emperor" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Empress" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Haru.png" alt="Empress" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Fool" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Igor.png" alt="Fool" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Fortune" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Chihaya.png" alt="Fortune" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Hanged-man" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Iwai.png" alt="Hanged Man" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Hermit" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Futaba.png" alt="Hermit" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Hierophant" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Sojiro.png" alt="Hierophant" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Judgement" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Sae.png" alt="Judgement" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Justice" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Goro.png" alt="Justice" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Lovers" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Ann.png" alt="Lovers" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Magician" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Morgana.png" alt="Magician" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Moon" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Mishima.png" alt="Moon" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Priestess" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Makoto.png" alt="Priestess" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Star" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Hifumi.png" alt="Star" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Strength" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Justine_and_Caroline.png" alt="Strength" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Sun" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Toranosuke.png" alt="Sun" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Temperance" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Kawakami.png" alt="Temperance" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+				<div class="arcarna-btn">
+					<button id="Tower" class="confidant-button btn btn-outline-primary">
+						<img src="img/confidant/Shinya.png" alt="Tower" class="confidant-img" height="100" width="100">
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-striped mt-5 ">
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Arcana</th>
 					<th>Level</th>
 					<th>Cost</th>
-					<th>physical</th>
-					<th>gun</th>
-					<th>fire</th>
-					<th>ice</th>
-					<th>electric</th>
-					<th>wind</th>
-					<th>psychic</th>
-					<th>nuclear</th>
-					<th>bless</th>
-					<th>curse</th>
+					<th><img src="img/Slash.png" alt="physical"></th>
+					<th><img src="img/Gun.png" alt="gun"></th>
+					<th><img src="img/Fire.png" alt="fire"></th>
+					<th><img src="img/Ice.png" alt="ice"></th>
+					<th><img src="img/Electric.png" alt="electric"></th>
+					<th><img src="img/Wind.png" alt="wind"></th>
+					<th><img src="img/Psychic.png" alt="psychic"></th>
+					<th><img src="img/Nuclear.png" alt="nuclear"></th>
+					<th><img src="img/Light.png" alt="bless"></th>
+					<th><img src="img/Dark.png" alt="curse"></th>
 				</tr>
 			</thead>
 			<tbody id="persona-list"></tbody>

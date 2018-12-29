@@ -62,25 +62,53 @@ class PersonaUI{
             cost = cost.substr(1)
         }
 
+        let physicalColour = PersonaUI.resColour(physical)
+        let gunColour = PersonaUI.resColour(gun)
+        let fireColour = PersonaUI.resColour(fire)
+        let iceColour = PersonaUI.resColour(ice)
+        let electricColour = PersonaUI.resColour(electric)
+        let windColour = PersonaUI.resColour(wind)
+        let psychicColour = PersonaUI.resColour(psychic)
+        let nuclearColour = PersonaUI.resColour(nuclear)
+        let blessColour = PersonaUI.resColour(bless)
+        let curseColour = PersonaUI.resColour(curse)
+
         row.innerHTML = `
             <td>${name}</td>
             <td>${arcana}</td>
             <td>${level}</td>
             <td>¥${cost}</td>
-            <td>${physical}</td>
-            <td>${gun}</td>
-            <td>${fire}</td>
-            <td>${ice}</td>
-            <td>${electric}</td>
-            <td>${wind}</td>
-            <td>${psychic}</td>
-            <td>${nuclear}</td>
-            <td>${bless}</td>
-            <td>${curse}</td>
+            <td class="align-middle" style="color:${physicalColour}</td>
+            <td class="align-middle" style="color:${gunColour}</td>
+            <td class="align-middle" style="color:${fireColour}</td>
+            <td class="align-middle" style="color:${iceColour}</td>
+            <td class="align-middle" style="color:${electricColour}</td>
+            <td class="align-middle" style="color:${windColour}</td>
+            <td style="color:${psychicColour}</td>
+            <td style="color:${nuclearColour}</td>
+            <td style="color:${blessColour}</td>
+            <td style="color:${curseColour}</td>
         `
 
         list.appendChild(row)
     }
+
+    static resColour(res_type){
+        let res_name_return = 'black;">-'
+        if (res_type == 'wk'){
+            res_name_return = `red;">${res_type}`
+        } else if (res_type === 'ab'){
+            res_name_return = `orange;">${res_type}`
+        } else if (res_type === 'rs'){
+            res_name_return = `blue;">${res_type}`
+        } else if (res_type === 'nu'){
+            res_name_return = `grey;">${res_type}`
+        } else if (res_type === 'rp'){
+            res_name_return = `black;">${res_type}`
+        }
+        return res_name_return
+    }
+        
 
     static tableFilter() {
         // Declare variables 
@@ -102,6 +130,26 @@ class PersonaUI{
             } 
         }
     }
+
+    static collapseInfo() {
+        let div = document.getElementById("arcarna-table");
+        let item = document.getElementById("arcarna-display-+");
+        if (div.style.display == "none") {
+            div.style.display = "block";
+            setTimeout(() => {
+            div.style.opacity = 1;
+            div.style.transition = "opacity 1s ease-in-out";
+            }, 2)
+            document.getElementById('arcarna-display-+').innerHTML = '-'
+        } else  {
+            div.style.display = "none";
+            setTimeout(() => {
+            div.style.opacity = 0;
+            div.style.transition = "opacity 1s ease-in-out";
+            }, 2)
+            document.getElementById('arcarna-display-+').innerHTML = '+'
+        }
+    }
 }
 
 
@@ -112,3 +160,10 @@ document.addEventListener('DOMContentLoaded', PersonaUI.loadPersona)
 document.getElementById('search-bar').addEventListener('keyup', () => {
     PersonaUI.tableFilter()
 })
+
+// Events: Arcarana hide
+document.getElementById('arcarna-display').addEventListener('click', () => {
+    PersonaUI.collapseInfo()
+})
+
+
