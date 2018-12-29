@@ -21,6 +21,13 @@ class PersonaUI{
                 let bless = info["persona"][item][persona]["data"]["resistance"]["bless"]
                 let curse = info["persona"][item][persona]["data"]["resistance"]["curse"]
 
+                let strength = info["persona"][item][persona]["data"]["stats"]["strength"]
+                let magic = info["persona"][item][persona]["data"]["stats"]["magic"]
+                let endurance = info["persona"][item][persona]["data"]["stats"]["endurance"]
+                let agility = info["persona"][item][persona]["data"]["stats"]["agility"]
+                let luck = info["persona"][item][persona]["data"]["stats"]["luck"]
+
+
                 PersonaUI.createPersona(name,
                                         arcana,
                                         level,
@@ -34,7 +41,12 @@ class PersonaUI{
                                         psychic,
                                         nuclear,
                                         bless,
-                                        curse)
+                                        curse,
+                                        strength,
+                                        magic,
+                                        endurance,
+                                        agility,
+                                        luck)
             }  
         }
     }
@@ -52,7 +64,12 @@ class PersonaUI{
                             psychic,
                             nuclear,
                             bless,
-                            curse) {
+                            curse,
+                            strength,
+                            magic,
+                            endurance,
+                            agility,
+                            luck) {
         // get thee id
         const list = document.getElementById('persona-list')
         // declare what type of html you want
@@ -78,16 +95,21 @@ class PersonaUI{
             <td>${arcana}</td>
             <td>${level}</td>
             <td>¥${cost}</td>
-            <td class="align-middle" style="color:${physicalColour}</td>
-            <td class="align-middle" style="color:${gunColour}</td>
-            <td class="align-middle" style="color:${fireColour}</td>
-            <td class="align-middle" style="color:${iceColour}</td>
-            <td class="align-middle" style="color:${electricColour}</td>
-            <td class="align-middle" style="color:${windColour}</td>
-            <td style="color:${psychicColour}</td>
-            <td style="color:${nuclearColour}</td>
-            <td style="color:${blessColour}</td>
-            <td style="color:${curseColour}</td>
+            <td id="stats">${strength}</td>
+            <td id="stats">${magic}</td>
+            <td id="stats">${endurance}</td>
+            <td id="stats">${agility}</td>
+            <td id="stats">${luck}</td>
+            <td id="resistance" style="color:${physicalColour}</td>
+            <td id="resistance" style="color:${gunColour}</td>
+            <td id="resistance" style="color:${fireColour}</td>
+            <td id="resistance" style="color:${iceColour}</td>
+            <td id="resistance" style="color:${electricColour}</td>
+            <td id="resistance" style="color:${windColour}</td>
+            <td id="resistance" style="color:${psychicColour}</td>
+            <td id="resistance" style="color:${nuclearColour}</td>
+            <td id="resistance" style="color:${blessColour}</td>
+            <td id="resistance" style="color:${curseColour}</td>
         `
 
         list.appendChild(row)
@@ -109,7 +131,6 @@ class PersonaUI{
         return res_name_return
     }
         
-
     static tableFilter() {
         // Declare variables 
         let input, filter, table, tr, td, i
@@ -133,22 +154,38 @@ class PersonaUI{
 
     static collapseInfo() {
         let div = document.getElementById("arcarna-table");
-        let item = document.getElementById("arcarna-display-+");
         if (div.style.display == "none") {
             div.style.display = "block";
             setTimeout(() => {
-            div.style.opacity = 1;
-            div.style.transition = "opacity 1s ease-in-out";
+                div.style.opacity = 1;
+                div.style.transition = "opacity 1s ease-in-out";
             }, 2)
             document.getElementById('arcarna-display-+').innerHTML = '-'
         } else  {
             div.style.display = "none";
             setTimeout(() => {
-            div.style.opacity = 0;
-            div.style.transition = "opacity 1s ease-in-out";
+                div.style.opacity = 0;
+                div.style.transition = "opacity 1s ease-in-out";
             }, 2)
             document.getElementById('arcarna-display-+').innerHTML = '+'
         }
+    }
+
+    static collapseTableInfo(resistance) {
+        const elementsList = document.querySelectorAll(`#${resistance}`);
+        const elementsArray = [...elementsList];
+
+        elementsArray.forEach(element => {
+            if (element.style.display == "none") {
+                element.style.display = "";
+                element.style.opacity = 1;
+                document.getElementById(`${resistance}-display-+`).innerHTML = '-'
+            } else  {
+                element.style.display = "none";
+                element.style.opacity = 0;
+                document.getElementById(`${resistance}-display-+`).innerHTML = '+'
+            }
+        });
     }
 }
 
@@ -164,6 +201,16 @@ document.getElementById('search-bar').addEventListener('keyup', () => {
 // Events: Arcarana hide
 document.getElementById('arcarna-display').addEventListener('click', () => {
     PersonaUI.collapseInfo()
+})
+
+// Events: Reistance table hide
+document.getElementById('resistance-display').addEventListener('click', () => {
+    PersonaUI.collapseTableInfo("resistance")
+})
+
+// Events: Stats table hide
+document.getElementById('stats-display').addEventListener('click', () => {
+    PersonaUI.collapseTableInfo("stats")
 })
 
 

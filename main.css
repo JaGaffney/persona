@@ -1,7 +1,7 @@
 .confidant-img{
 	border-radius: 50%; 
-	height: 6rem;
-	width: 6rem;
+	height: 5rem;
+	width: 5rem;
 } 
 
 .confidant-button{
@@ -9,8 +9,8 @@
 	background-color: white;
 	padding: 0;
 	cursor: pointer;
-	height: 6rem;
-	width: 6rem;
+	height: 5rem;
+	width: 5rem;
 } 
 
 .arcarna-btn{
@@ -21,5 +21,16 @@
 
 #arcarna-display{
 	font-size: 1.4rem;
-	width: 100%;
+	width: 98%;
 }
+
+.table-btn{
+	font-size: 1.4rem;
+	width: 49%;
+	display: inline ;
+}
+
+.table-btn-header{
+	padding: 0rem;
+}
+
