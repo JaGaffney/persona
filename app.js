@@ -148,8 +148,10 @@ class PersonaUI{
 
         // checks for filter type
         // default is search bar but if it isnt it will search by button ID
+
+
         if (event != "search-bar"){
-            inputType = event.target.id
+            inputType = event.currentTarget.id
             filter = inputType.toUpperCase()
             document.getElementById("search-bar").value=""
         } else {
