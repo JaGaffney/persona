@@ -13,24 +13,31 @@
 	width: 5rem;
 } 
 
-.arcarna-btn{
+.arcana-button{
 	padding:0.4rem;
 	float: left;
 }
 
 
-#arcarna-display{
+#arcana-display{
 	font-size: 1.4rem;
 	width: 98%;
 }
 
 .table-btn{
 	font-size: 1.4rem;
-	width: 49%;
+	width: 33%;
 	display: inline ;
 }
 
 .table-btn-header{
 	padding: 0rem;
 }
+
+.table-header{
+	cursor: pointer;
+}
+
+
+
 

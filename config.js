@@ -2697,7 +2697,7 @@ export let info = {
           "persona_15": "Slime",
           "persona_16": "Crystal Skull"
         },
-        "base_cost": "",
+        "base_cost": "1000",
         "skills": {
           "skill_1": {
             "skill_name": "Zio",
@@ -5138,7 +5138,7 @@ export let info = {
           "persona_47": "Mandrake",
           "persona_48": "Crystal Skull"
         },
-        "base_cost": "",
+        "base_cost": "1649",
         "skills": {
           "skill_1": {
             "skill_name": "Skull Cracker",
@@ -5202,7 +5202,7 @@ export let info = {
           "persona_9": "Mokoi",
           "persona_10": "emperors Amulet"
         },
-        "base_cost": "",
+        "base_cost": "1210",
         "skills": {
           "skill_1": {
             "skill_name": "Pulinpa",
@@ -7721,7 +7721,7 @@ export let info = {
           "persona_23": "Andras",
           "persona_24": "Crystal Skull"
         },
-        "base_cost": "",
+        "base_cost": "1326",
         "skills": {
           "skill_1": {
             "skill_name": "Evil Touch",
@@ -13917,7 +13917,7 @@ export let info = {
           "persona_31": "Arsene",
           "persona_32": "Hope Diamond"
         },
-        "base_cost": "",
+        "base_cost": "2682",
         "skills": "",
         "author_info": ""
       },
@@ -13956,7 +13956,7 @@ export let info = {
           "persona_9": "Obariyon",
           "persona_10": "emperors Amulet"
         },
-        "base_cost": "",
+        "base_cost": "1000",
         "skills": {
           "skill_1": {
             "skill_name": "Eiha",
@@ -17849,7 +17849,7 @@ export let info = {
           "persona_17": "Inugami",
           "persona_18": "Crystal Skull"
         },
-        "base_cost": "",
+        "base_cost": "1649",
         "skills": {
           "skill_1": {
             "skill_name": "Agi",
@@ -20012,7 +20012,7 @@ export let info = {
           "persona_33": "Sudama",
           "persona_34": "Crystal Skull"
         },
-        "base_cost": "",
+        "base_cost": "1649",
         "skills": "",
         "author_info": ""
       },
@@ -20051,7 +20051,7 @@ export let info = {
           "persona_9": "Ippon-Datara",
           "persona_10": "Crystal Skull"
         },
-        "base_cost": "",
+        "base_cost": "1273",
         "skills": {
           "skill_1": {
             "skill_name": "Lunge",
@@ -22621,7 +22621,7 @@ export let info = {
           "persona_51": "Orobas",
           "persona_52": "Crystal Skull"
         },
-        "base_cost": "",
+        "base_cost": "1649",
         "skills": {
           "skill_1": {
             "skill_name": "Cleave",
