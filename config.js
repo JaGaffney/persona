@@ -11527,59 +11527,6 @@ export let info = {
       }
     },
     "Fool": {
-      "": {
-        "data": {
-          "level": "",
-          "stats": {
-            "strength": "",
-            "magic": "",
-            "endurance": "",
-            "agility": "",
-            "luck": ""
-          },
-          "resistance": {
-            "physical": "",
-            "gun": "",
-            "fire": "",
-            "ice": "",
-            "electric": "",
-            "wind": "",
-            "psychic": "",
-            "nuclear": "",
-            "bless": "",
-            "curse": ""
-          }
-        },
-        "fusion": "",
-        "base_cost": "",
-        "skills": {
-          "skill_1": {
-            "skill_name": " Koppa Tengu ",
-            "skill_level": "Deal medium Gun damage to 1 foe."
-          },
-          "skill_2": {
-            "skill_name": "Baseline",
-            "skill_level": "Deal weak Wind damage to 1 foe."
-          },
-          "skill_3": {
-            "skill_name": "Baseline",
-            "skill_level": "Persona gains 1/4 EXP while inactive."
-          },
-          "skill_4": {
-            "skill_name": "12",
-            "skill_level": "Inflict Rage (high odds) to 1 foe."
-          },
-          "skill_5": {
-            "skill_name": "13",
-            "skill_level": "Increase chance of inflicting Rage."
-          },
-          "skill_6": {
-            "skill_name": "14",
-            "skill_level": "Inflict Rage (medium odds) to  foes."
-          }
-        },
-        "author_info": ""
-      },
       "Satanael": {
         "data": {
           "level": "95",
