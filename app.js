@@ -151,6 +151,7 @@ class PersonaUI{
         if (event != "search-bar"){
             inputType = event.target.id
             filter = inputType.toUpperCase()
+            document.getElementById("search-bar").value=""
         } else {
             input = document.getElementById(inputType)
             filter = input.value.toUpperCase()    
@@ -218,6 +219,7 @@ class PersonaUI{
 
     static resetDisplay(){
         document.getElementById("persona-list").innerHTML=""
+        document.getElementById("search-bar").value=""
         PersonaUI.loadPersona()
     }
 
