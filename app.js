@@ -215,6 +215,8 @@ class PersonaUI{
         const elementsListStats = document.querySelectorAll('#stats');
         const elementsArrayStats = [...elementsListStats];
 
+        document.getElementById("arcana-table").style.display= "none"
+
         elementsArrayRes.forEach(element => {element.style.display = "none"})
         elementsArrayStats.forEach(element => {element.style.display = "none"})
     }
@@ -222,6 +224,8 @@ class PersonaUI{
     static resetDisplay(){
         document.getElementById("persona-list").innerHTML=""
         document.getElementById("search-bar").value=""
+        document.getElementById('resistance-display-+').innerHTML = '+'
+        document.getElementById('stats-display-+').innerHTML = '+'
         PersonaUI.loadPersona()
     }
 
