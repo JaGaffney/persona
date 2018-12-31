@@ -296,6 +296,7 @@ class PersonaUI{
                 }
             } 
         }
+        document.getElementById("create-persona-info").innerHTML = ""
     }
 
     // collapses the arcana button display area if the user clicks the button
