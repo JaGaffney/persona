@@ -38,6 +38,10 @@
 	cursor: pointer;
 }
 
+.personaNameTable{
+	cursor: pointer;
+}
+
 
 @media (max-width: 1100px) {
 	.table-btn{

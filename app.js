@@ -4,30 +4,31 @@ class PersonaUI{
 
     // the init load which gathers data from the JSON file
     static loadPersona() {
+        let tableNameArray = []
         for (let item in info["persona"]) {
             for (let persona in info["persona"][item]){
+                tableNameArray.push(persona)
                 let name = persona
                 let arcana = item
                 let level = info["persona"][item][persona]["data"]["level"]
                 let cost = info["persona"][item][persona]["base_cost"]
 
-                let physical = info["persona"][item][persona]["data"]["resistance"]["physical"]
-                let gun = info["persona"][item][persona]["data"]["resistance"]["gun"]
-                let fire = info["persona"][item][persona]["data"]["resistance"]["fire"]
-                let ice = info["persona"][item][persona]["data"]["resistance"]["ice"]
-                let electric = info["persona"][item][persona]["data"]["resistance"]["electric"]
-                let wind = info["persona"][item][persona]["data"]["resistance"]["wind"]
-                let psychic = info["persona"][item][persona]["data"]["resistance"]["nuclear"]
-                let nuclear = info["persona"][item][persona]["data"]["resistance"]["nuclear"]
-                let bless = info["persona"][item][persona]["data"]["resistance"]["bless"]
-                let curse = info["persona"][item][persona]["data"]["resistance"]["curse"]
+                let physical = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["physical"])
+                let gun = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["gun"])
+                let fire = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["fire"])
+                let ice = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["ice"])
+                let electric = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["electric"])
+                let wind = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["wind"])
+                let psychic = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["nuclear"])
+                let nuclear = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["nuclear"])
+                let bless = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["bless"])
+                let curse = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["curse"])
 
                 let strength = info["persona"][item][persona]["data"]["stats"]["strength"]
                 let magic = info["persona"][item][persona]["data"]["stats"]["magic"]
                 let endurance = info["persona"][item][persona]["data"]["stats"]["endurance"]
                 let agility = info["persona"][item][persona]["data"]["stats"]["agility"]
                 let luck = info["persona"][item][persona]["data"]["stats"]["luck"]
-
 
                 PersonaUI.createPersona(name,
                                         arcana,
@@ -52,6 +53,14 @@ class PersonaUI{
         }
         // hides some table data by default
         PersonaUI.loadHiddenTable()
+
+        // Sets ids to table elements
+        // loops over the list and assigns and event listern to each id name
+        tableNameArray.forEach(element => {
+            document.getElementById(element).addEventListener('click', (event) => {
+                PersonaUI.createPersonaInfo(element, event)   
+            }
+        )})
     }
 
     // populates the table with the JSON data
@@ -84,22 +93,10 @@ class PersonaUI{
             cost = cost.substr(1)
         }
 
-        // changes the colour of resistance to have a better style depending on what its init value is
-        let physicalColour = PersonaUI.resColour(physical)
-        let gunColour = PersonaUI.resColour(gun)
-        let fireColour = PersonaUI.resColour(fire)
-        let iceColour = PersonaUI.resColour(ice)
-        let electricColour = PersonaUI.resColour(electric)
-        let windColour = PersonaUI.resColour(wind)
-        let psychicColour = PersonaUI.resColour(psychic)
-        let nuclearColour = PersonaUI.resColour(nuclear)
-        let blessColour = PersonaUI.resColour(bless)
-        let curseColour = PersonaUI.resColour(curse)
-
         // populats the html row
         row.innerHTML = `
-            <td>${name}</td>
-            <td>${arcana}</td>
+            <td id="${name}" class="personaNameTable">${name}</td>
+            <td id="${arcana}">${arcana}</td>
             <td>${level}</td>
             <td>${cost}</td>
             <td id="stats">${strength}</td>
@@ -107,19 +104,148 @@ class PersonaUI{
             <td id="stats">${endurance}</td>
             <td id="stats">${agility}</td>
             <td id="stats">${luck}</td>
-            <td id="resistance" style="color:${physicalColour}</td>
-            <td id="resistance" style="color:${gunColour}</td>
-            <td id="resistance" style="color:${fireColour}</td>
-            <td id="resistance" style="color:${iceColour}</td>
-            <td id="resistance" style="color:${electricColour}</td>
-            <td id="resistance" style="color:${windColour}</td>
-            <td id="resistance" style="color:${psychicColour}</td>
-            <td id="resistance" style="color:${nuclearColour}</td>
-            <td id="resistance" style="color:${blessColour}</td>
-            <td id="resistance" style="color:${curseColour}</td>
+            <td id="resistance" style="color:${physical}</td>
+            <td id="resistance" style="color:${gun}</td>
+            <td id="resistance" style="color:${fire}</td>
+            <td id="resistance" style="color:${ice}</td>
+            <td id="resistance" style="color:${electric}</td>
+            <td id="resistance" style="color:${wind}</td>
+            <td id="resistance" style="color:${psychic}</td>
+            <td id="resistance" style="color:${nuclear}</td>
+            <td id="resistance" style="color:${bless}</td>
+            <td id="resistance" style="color:${curse}</td>
         `
         // adds the table row data to the table
         list.appendChild(row)
+    }
+
+    static createPersonaInfo(personaName, event){
+        const personaTableInfo = document.getElementById('create-persona-info')
+        personaTableInfo.innerHTML = ""
+
+        // passes in data from event click
+        let persona = personaName
+        let arcana = event.currentTarget.parentElement.children[1].id
+
+        let strength = info["persona"][arcana][persona]["data"]["stats"]["strength"]
+        let magic = info["persona"][arcana][persona]["data"]["stats"]["magic"]
+        let endurance = info["persona"][arcana][persona]["data"]["stats"]["endurance"]
+        let agility = info["persona"][arcana][persona]["data"]["stats"]["agility"]
+        let luck = info["persona"][arcana][persona]["data"]["stats"]["luck"]
+
+        let physical = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["physical"])
+        let gun = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["gun"])
+        let fire = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["fire"])
+        let ice = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["ice"])
+        let electric = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["electric"])
+        let wind = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["wind"])
+        let psychic = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["nuclear"])
+        let nuclear = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["nuclear"])
+        let bless = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["bless"])
+        let curse = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["curse"])
+
+        // create the div
+        const div = document.createElement('div')
+        div.className = 'create-persona-info'
+
+        // Title
+        const header = document.createElement('h3')
+        header.className = "display-6 text-center"
+        header.innerHTML = `<hr />
+                            Name: <span class="text-primary">${persona}</span>, 
+                            Confidant: <span class="text-primary">${arcana}</span>
+                            `
+        div.appendChild(header)
+
+
+        // Stats table
+        const statsTable = document.createElement('table')
+        statsTable.className = 'table-persona-info table table-striped mt-5'
+        statsTable.innerHTML = `
+            <thead>
+                <th>Strength</th>
+                <th>Magic</th>
+                <th>Endurance</th>
+                <th>Agility</th>
+                <th>Luck</th>
+            </thead>
+        `
+        const statsRow = document.createElement('tr')
+        statsRow.innerHTML =
+           ` 
+            <td id="personal-stats">${strength}</td>
+            <td id="personal-stats">${magic}</td>
+            <td id="personal-stats">${endurance}</td>
+            <td id="personal-stats">${agility}</td>
+            <td id="personal-stats">${luck}</td>
+            `
+        statsTable.appendChild(statsRow)
+        div.appendChild(statsTable)
+
+
+        // Resistance table
+        const resistanceTable = document.createElement('table')
+        resistanceTable.className = 'table-persona-info table table-striped mt-5'
+        resistanceTable.innerHTML = `
+            <thead>
+                    <th id="personal-resistance"><img src="img/Slash.png" alt="physical" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Gun.png" alt="gun" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Fire.png" alt="fire" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Ice.png" alt="ice" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Electric.png" alt="electric" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Wind.png" alt="wind" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Psychic.png" alt="psychic" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Nuclear.png" alt="nuclear" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Light.png" alt="bless" height="18"></th>
+                    <th id="personal-resistance"><img src="img/Dark.png" alt="curse" height="18"></th>
+            </thead>
+        `
+        const resistanceRow = document.createElement('tr')
+        resistanceRow.innerHTML =`
+            <td id="personal-resistance" style="color:${physical}</td>
+            <td id="personal-resistance" style="color:${gun}</td>
+            <td id="personal-resistance" style="color:${fire}</td>
+            <td id="personal-resistance" style="color:${ice}</td>
+            <td id="personal-resistance" style="color:${electric}</td>
+            <td id="personal-resistance" style="color:${wind}</td>
+            <td id="personal-resistance" style="color:${psychic}</td>
+            <td id="personal-resistance" style="color:${nuclear}</td>
+            <td id="personal-resistance" style="color:${bless}</td>
+            <td id="personal-resistance" style="color:${curse}</td>
+
+            `
+        resistanceTable.appendChild(resistanceRow)
+        div.appendChild(resistanceTable)
+
+
+        // Fusion table
+        const fusionTable = document.createElement('table')
+        fusionTable.className = 'table-persona-info table table-striped mt-5'
+        // add the data 
+        fusionTable.innerHTML = `
+            <thead>
+                <th>Cost</th>
+                <th>Fusion 1</th>
+                <th>Fusion 2</th>
+            </thead>
+        `
+       /* // need to loop over the dict to display all fusions
+        const fusionRow = document.createElement('tr')
+        fusionsArray = info["persona"][arcana][persona]["fusion"]
+        fusionsArray.forEach(
+            fusionRow.innerHTML`
+            <td>${fusion1}</td>
+            <td>${fusion2}</td>
+            `
+            )
+        fusionTable.appendChild(fusionRow)     */ 
+
+
+
+        div.appendChild(fusionTable)
+
+        // add the div to the table
+        personaTableInfo.append(div)
     }
 
     // sets the colour of reistances depening on its init value
@@ -206,6 +332,9 @@ class PersonaUI{
                 document.getElementById(`${resistance}-display-+`).innerHTML = '+'
             }
         });
+
+        // temp location
+        PersonaUI.createPersonaInfo()
     }
 
     // hides the table elements on load to make ui look cleaner
@@ -226,6 +355,7 @@ class PersonaUI{
         document.getElementById("search-bar").value=""
         document.getElementById('resistance-display-+').innerHTML = '+'
         document.getElementById('stats-display-+').innerHTML = '+'
+        document.getElementById("create-persona-info").innerHTML = ""
         PersonaUI.loadPersona()
     }
 
@@ -427,5 +557,4 @@ document.getElementById('level').addEventListener('click', () => {
 document.getElementById('cost').addEventListener('click', () => {
     PersonaUI.sortTableCurrency("3")
 })
-
 
