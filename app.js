@@ -231,20 +231,25 @@ class PersonaUI{
         // TODO work out cost
         let cost = 0
         let fusionArray = []
+        let fusionArrayFull = []
         for (let item in info["persona"][arcana][persona]["fusion"]) {
             fusionArray = [...fusionArray, info["persona"][arcana][persona]["fusion"][item]]
             if (fusionArray.length == 2) {
                 let fusionRow = document.createElement('tr')
+                let fusion_1 = `${fusionArray[0]}&${fusionArray[1]}`
+                let fusion_2 = `${fusionArray[1]}&${fusionArray[0]}`
                 fusionRow.innerHTML = `
                     <td>¥${cost}</td>
-                    <td>${fusionArray[0]}</td>
-                    <td>${fusionArray[1]}</td>
+                    <td id="${fusion_1}">${fusionArray[0]}</td>
+                    <td id="${fusion_2}">${fusionArray[1]}</td>
                 `
                 fusionTable.appendChild(fusionRow) 
                 fusionArray = []
+                fusionArrayFull = [...fusionArrayFull, fusion_1, fusion_2]
+
+ 
             } 
         }
-        
 
         // create the fusion hide button
         let button = document.createElement('button')
@@ -264,6 +269,14 @@ class PersonaUI{
         document.getElementById('reset-fusion-display').addEventListener('click', () => {
             PersonaUI.fusionGenerator()
         })
+
+        // TODO need to work out which arcana it is so i cna pass it to the createPersonaInfo() rather than the filter
+        fusionArrayFull.forEach(element => {
+            document.getElementById(element).addEventListener('click', () => {
+                let item = element.split("&")
+                PersonaUI.tableFilter(0, item[0])   
+            }
+        )})
 
         window.scrollTo(0, 0)
     }
@@ -296,6 +309,9 @@ class PersonaUI{
             if (typeof event === "string") {
                 if (event.includes("-table")){
                     inputType = event.replace("-table", "")
+                } else {
+                    // temp location might be better to jsut move to create table
+                    inputType = event
                 }
             } else { 
                 inputType = event.currentTarget.id
