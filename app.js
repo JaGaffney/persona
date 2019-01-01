@@ -1,13 +1,14 @@
+// Loads teh JSON file raw data
 import { info } from './config.js';
 
-class PersonaUI{
 
+class PersonaUI{
     // the init load which gathers data from the JSON file
     static loadPersona() {
         let tableNameArray = []
         for (let item in info["persona"]) {
             for (let persona in info["persona"][item]){
-                tableNameArray.push(persona)
+                tableNameArray = [...tableNameArray, persona]
                 let name = persona
                 let arcana = item
                 let level = info["persona"][item][persona]["data"]["level"]
@@ -54,11 +55,21 @@ class PersonaUI{
         // hides some table data by default
         PersonaUI.loadHiddenTable()
 
-        // Sets ids to table elements
+        // Sets ID's to Name table elements
         // loops over the list and assigns and event listern to each id name
         tableNameArray.forEach(element => {
             document.getElementById(element).addEventListener('click', (event) => {
                 PersonaUI.createPersonaInfo(element, event)   
+            }
+        )})
+
+        // Sets ID's for Arcana table elements
+        // only works for first item in table
+        const arcanaArray = Object.keys(info["persona"])
+        arcanaArray.forEach(element => {
+            element = element + "-table"
+            document.getElementById(element).addEventListener('click', (event) => {
+                PersonaUI.tableFilter(1, element)   
             }
         )})
     }
@@ -84,9 +95,9 @@ class PersonaUI{
                             agility,
                             luck) {
         // get thee id
-        const list = document.getElementById('persona-list')
+        let list = document.getElementById('persona-list')
         // declare what type of html you want
-        const row = document.createElement('tr')
+        let row = document.createElement('tr')
 
         // removes currency with a 0 at the start to make the table look nicer
         while(cost.charAt(0) === '0'){
@@ -96,7 +107,7 @@ class PersonaUI{
         // populats the html row
         row.innerHTML = `
             <td id="${name}" class="personaNameTable">${name}</td>
-            <td id="${arcana}">${arcana}</td>
+            <td id="${arcana}-table" class="personaArcanaTable">${arcana}</td>
             <td>${level}</td>
             <td>${cost}</td>
             <td id="stats">${strength}</td>
@@ -120,12 +131,14 @@ class PersonaUI{
     }
 
     static createPersonaInfo(personaName, event){
-        const personaTableInfo = document.getElementById('create-persona-info')
+        let personaTableInfo = document.getElementById('create-persona-info')
         personaTableInfo.innerHTML = ""
 
         // passes in data from event click
         let persona = personaName
         let arcana = event.currentTarget.parentElement.children[1].id
+
+        arcana = arcana.replace("-table", "") 
 
         let strength = info["persona"][arcana][persona]["data"]["stats"]["strength"]
         let magic = info["persona"][arcana][persona]["data"]["stats"]["magic"]
@@ -145,11 +158,11 @@ class PersonaUI{
         let curse = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["curse"])
 
         // create the div
-        const div = document.createElement('div')
+        let div = document.createElement('div')
         div.className = 'create-persona-info'
 
         // Title
-        const header = document.createElement('h3')
+        let header = document.createElement('h3')
         header.className = "display-6 text-center"
         header.innerHTML = `<hr />
                             Name: <span class="text-primary">${persona}</span>, 
@@ -159,7 +172,7 @@ class PersonaUI{
 
 
         // Stats table
-        const statsTable = document.createElement('table')
+        let statsTable = document.createElement('table')
         statsTable.className = 'table-persona-info table table-striped mt-5'
         statsTable.innerHTML = `
             <thead>
@@ -168,9 +181,19 @@ class PersonaUI{
                 <th>Endurance</th>
                 <th>Agility</th>
                 <th>Luck</th>
+                <th id="personal-resistance"><img src="img/Slash.png" alt="physical" height="18"></th>
+                <th id="personal-resistance"><img src="img/Gun.png" alt="gun" height="18"></th>
+                <th id="personal-resistance"><img src="img/Fire.png" alt="fire" height="18"></th>
+                <th id="personal-resistance"><img src="img/Ice.png" alt="ice" height="18"></th>
+                <th id="personal-resistance"><img src="img/Electric.png" alt="electric" height="18"></th>
+                <th id="personal-resistance"><img src="img/Wind.png" alt="wind" height="18"></th>
+                <th id="personal-resistance"><img src="img/Psychic.png" alt="psychic" height="18"></th>
+                <th id="personal-resistance"><img src="img/Nuclear.png" alt="nuclear" height="18"></th>
+                <th id="personal-resistance"><img src="img/Light.png" alt="bless" height="18"></th>
+                <th id="personal-resistance"><img src="img/Dark.png" alt="curse" height="18"></th>
             </thead>
-        `
-        const statsRow = document.createElement('tr')
+            `
+        let statsRow = document.createElement('tr')
         statsRow.innerHTML =
            ` 
             <td id="personal-stats">${strength}</td>
@@ -178,30 +201,6 @@ class PersonaUI{
             <td id="personal-stats">${endurance}</td>
             <td id="personal-stats">${agility}</td>
             <td id="personal-stats">${luck}</td>
-            `
-        statsTable.appendChild(statsRow)
-        div.appendChild(statsTable)
-
-
-        // Resistance table
-        const resistanceTable = document.createElement('table')
-        resistanceTable.className = 'table-persona-info table table-striped mt-5'
-        resistanceTable.innerHTML = `
-            <thead>
-                    <th id="personal-resistance"><img src="img/Slash.png" alt="physical" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Gun.png" alt="gun" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Fire.png" alt="fire" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Ice.png" alt="ice" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Electric.png" alt="electric" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Wind.png" alt="wind" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Psychic.png" alt="psychic" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Nuclear.png" alt="nuclear" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Light.png" alt="bless" height="18"></th>
-                    <th id="personal-resistance"><img src="img/Dark.png" alt="curse" height="18"></th>
-            </thead>
-        `
-        const resistanceRow = document.createElement('tr')
-        resistanceRow.innerHTML =`
             <td id="personal-resistance" style="color:${physical}</td>
             <td id="personal-resistance" style="color:${gun}</td>
             <td id="personal-resistance" style="color:${fire}</td>
@@ -212,15 +211,14 @@ class PersonaUI{
             <td id="personal-resistance" style="color:${nuclear}</td>
             <td id="personal-resistance" style="color:${bless}</td>
             <td id="personal-resistance" style="color:${curse}</td>
-
             `
-        resistanceTable.appendChild(resistanceRow)
-        div.appendChild(resistanceTable)
-
+        statsTable.appendChild(statsRow)
+        div.appendChild(statsTable)
 
         // Fusion table
-        const fusionTable = document.createElement('table')
-        fusionTable.className = 'table-persona-info table table-striped mt-5'
+        let fusionTable = document.createElement('table')
+        fusionTable.className = 'table-fusion-persona-info table table-striped mt-5'
+        fusionTable.id = "fusion-table"
         // add the data 
         fusionTable.innerHTML = `
             <thead>
@@ -229,23 +227,45 @@ class PersonaUI{
                 <th>Fusion 2</th>
             </thead>
         `
-       /* // need to loop over the dict to display all fusions
-        const fusionRow = document.createElement('tr')
-        fusionsArray = info["persona"][arcana][persona]["fusion"]
-        fusionsArray.forEach(
-            fusionRow.innerHTML`
-            <td>${fusion1}</td>
-            <td>${fusion2}</td>
-            `
-            )
-        fusionTable.appendChild(fusionRow)     */ 
 
+        // TODO work out cost
+        let cost = 0
+        let fusionArray = []
+        for (let item in info["persona"][arcana][persona]["fusion"]) {
+            fusionArray = [...fusionArray, info["persona"][arcana][persona]["fusion"][item]]
+            if (fusionArray.length == 2) {
+                let fusionRow = document.createElement('tr')
+                fusionRow.innerHTML = `
+                    <td>¥${cost}</td>
+                    <td>${fusionArray[0]}</td>
+                    <td>${fusionArray[1]}</td>
+                `
+                fusionTable.appendChild(fusionRow) 
+                fusionArray = []
+            } 
+        }
+        
 
+        // create the fusion hide button
+        let button = document.createElement('button')
+        button.className = 'btn btn-outline-primary table-btn '
+        button.id = "reset-fusion-display"
+        button.innerHTML = '<span id="reset-fusion-display-+">-</span> Fusions'
 
+                      
+        div.appendChild(button)
         div.appendChild(fusionTable)
 
         // add the div to the table
         personaTableInfo.append(div)
+
+        // Needs to be added after the table has been appeneded after the fusions have been loaded
+        // Events: Fusion hide button
+        document.getElementById('reset-fusion-display').addEventListener('click', () => {
+            PersonaUI.fusionGenerator()
+        })
+
+        window.scrollTo(0, 0)
     }
 
     // sets the colour of reistances depening on its init value
@@ -267,21 +287,23 @@ class PersonaUI{
     
     // filters the table depending on if a button was pressed or if the table was searched
     static tableFilter(row, event) {
-        let inputType = "search-bar" 
-        let input, filter, table, tr, td, i
+        let input, filter, table, tr, td, i, inputType
         table = document.getElementById("persona-list")
         tr = table.getElementsByTagName("tr")
 
-        // checks for filter type
-        // default is search bar but if it isnt it will search by button ID
-
-
+        // checks for filter type if not default of serach bar will filter based on passed in items
         if (event != "search-bar"){
-            inputType = event.currentTarget.id
+            if (typeof event === "string") {
+                if (event.includes("-table")){
+                    inputType = event.replace("-table", "")
+                }
+            } else { 
+                inputType = event.currentTarget.id
+            }
             filter = inputType.toUpperCase()
-            document.getElementById("search-bar").value=""
+            document.getElementById("search-bar").value= ""
         } else {
-            input = document.getElementById(inputType)
+            input = document.getElementById(event)
             filter = input.value.toUpperCase()    
         }
 
@@ -297,9 +319,11 @@ class PersonaUI{
             } 
         }
         document.getElementById("create-persona-info").innerHTML = ""
+        window.scrollTo(0, 0);
     }
 
-    // collapses the arcana button display area if the user clicks the button
+    // (Hide - x) can probally refactor some of these as it's baiscally the same thing 4 times with a few differnces
+    // (Hide - 1) Hides the arcana button display area if the user clicks the button
     static collapseInfo() {
         let div = document.getElementById("arcana-table");
         if (div.style.display == "none") {
@@ -319,10 +343,10 @@ class PersonaUI{
         }
     }
 
-    // Hides table inforatimation depending on what the user has seleceted
+    // (Hide - 2) Hides table inforatimation depending on what the user has seleceted
     static collapseTableInfo(resistance) {
-        const elementsList = document.querySelectorAll(`#${resistance}`);
-        const elementsArray = [...elementsList];
+        let elementsList = document.querySelectorAll(`#${resistance}`);
+        let elementsArray = [...elementsList];
 
         elementsArray.forEach(element => {
             if (element.style.display == "none") {
@@ -333,22 +357,32 @@ class PersonaUI{
                 document.getElementById(`${resistance}-display-+`).innerHTML = '+'
             }
         });
-
-        // temp location
-        PersonaUI.createPersonaInfo()
     }
 
-    // hides the table elements on load to make ui look cleaner
+    // (Hide - 3) Hides the table elements on load to make ui look cleaner
     static loadHiddenTable(){
-        const elementsListRes = document.querySelectorAll('#resistance');
-        const elementsArrayRes = [...elementsListRes];        
-        const elementsListStats = document.querySelectorAll('#stats');
-        const elementsArrayStats = [...elementsListStats];
+        let elementsListRes = document.querySelectorAll('#resistance');
+        let elementsArrayRes = [...elementsListRes];        
+        let elementsListStats = document.querySelectorAll('#stats');
+        let elementsArrayStats = [...elementsListStats];
 
         document.getElementById("arcana-table").style.display= "none"
 
         elementsArrayRes.forEach(element => {element.style.display = "none"})
         elementsArrayStats.forEach(element => {element.style.display = "none"})
+    }
+
+
+    // (Hide - 4) hides the fusion table after the button has been selecetd, could move into other hide functions
+    static fusionGenerator(){
+        let div = document.getElementById("fusion-table");
+        if (div.style.display == "none") {
+            div.style.display = "";
+            document.getElementById('reset-fusion-display-+').innerHTML = '-'
+        } else  {
+            div.style.display = "none";
+            document.getElementById('reset-fusion-display-+').innerHTML = '+'
+        }
     }
 
     static resetDisplay(){
@@ -479,10 +513,9 @@ class PersonaUI{
         }
       }
     }
-
-
-
 }
+
+// Non-Async event handerling
 
 // Event: On website load, loads the JSON file and populates the table
 document.addEventListener('DOMContentLoaded', PersonaUI.loadPersona)
@@ -493,30 +526,8 @@ document.getElementById('search-bar').addEventListener('keyup', () => {
 })
 
 // Events: Arcana button select
-let arcanaArray = [ "Chariot",
-                    "Death",
-                    "Devil",
-                    "Emperor",
-                    "Empress",
-                    "Fool",
-                    "Fortune",
-                    "Hanged_Man",
-                    "Hermit",
-                    "Hierophant",
-                    "Judgement",
-                    "Justice",
-                    "Lovers",
-                    "Magician",
-                    "Moon",
-                    "Priestess",
-                    "Star",
-                    "Strength",
-                    "Sun",
-                    "Temperance",
-                    "Tower"]
-
 // loops over the list and assigns and event listern to each id name
-arcanaArray.forEach(element => {
+Object.keys(info["persona"]).forEach(element => {
     document.getElementById(element).addEventListener('click', (event) => {
         PersonaUI.tableFilter(1, event)   
     }
