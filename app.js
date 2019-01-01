@@ -240,8 +240,8 @@ class PersonaUI{
                 let fusion_2 = `${fusionArray[1]}&${fusionArray[0]}`
                 fusionRow.innerHTML = `
                     <td>¥${cost}</td>
-                    <td id="${fusion_1}">${fusionArray[0]}</td>
-                    <td id="${fusion_2}">${fusionArray[1]}</td>
+                    <td class="personaNameTable" id="${fusion_1}">${fusionArray[0]}</td>
+                    <td class="personaNameTable" id="${fusion_2}">${fusionArray[1]}</td>
                 `
                 fusionTable.appendChild(fusionRow) 
                 fusionArray = []
