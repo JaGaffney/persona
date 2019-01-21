@@ -1,6 +1,6 @@
+
 // Loads teh JSON file raw data
 import { info } from './config.js';
-
 
 class PersonaUI{
     // the init load which gathers data from the JSON file
@@ -14,13 +14,14 @@ class PersonaUI{
                 let level = info["persona"][item][persona]["data"]["level"]
                 let cost = info["persona"][item][persona]["base_cost"]
 
+                // changes the resistances to a specific colour based on its values
                 let physical = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["physical"])
                 let gun = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["gun"])
                 let fire = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["fire"])
                 let ice = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["ice"])
                 let electric = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["electric"])
                 let wind = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["wind"])
-                let psychic = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["nuclear"])
+                let psychic = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["psychic"])
                 let nuclear = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["nuclear"])
                 let bless = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["bless"])
                 let curse = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["curse"])
@@ -31,6 +32,7 @@ class PersonaUI{
                 let agility = info["persona"][item][persona]["data"]["stats"]["agility"]
                 let luck = info["persona"][item][persona]["data"]["stats"]["luck"]
 
+                // call the html generator during the for loop to instert each item into the table
                 PersonaUI.createPersona(name,
                                         arcana,
                                         level,
@@ -94,7 +96,7 @@ class PersonaUI{
                             endurance,
                             agility,
                             luck) {
-        // get thee id
+        // get the id
         let list = document.getElementById('persona-list')
         // declare what type of html you want
         let row = document.createElement('tr')
@@ -130,6 +132,7 @@ class PersonaUI{
         list.appendChild(row)
     }
 
+    // Creates indiviual persona info when a peronsa has been 'clicked' from the table
     static createPersonaInfo(personaName, event){
         let personaTableInfo = document.getElementById('create-persona-info')
         personaTableInfo.innerHTML = ""
@@ -138,6 +141,7 @@ class PersonaUI{
         let persona = personaName
         let arcana = event.currentTarget.parentElement.children[1].id
 
+        // gets the arcana name by removing anything from the tr id other than arcana
         arcana = arcana.replace("-table", "") 
 
         let strength = info["persona"][arcana][persona]["data"]["stats"]["strength"]
@@ -146,6 +150,7 @@ class PersonaUI{
         let agility = info["persona"][arcana][persona]["data"]["stats"]["agility"]
         let luck = info["persona"][arcana][persona]["data"]["stats"]["luck"]
 
+        // changes the resistances to a specific colour based on its values
         let physical = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["physical"])
         let gun = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["gun"])
         let fire = PersonaUI.resColour(info["persona"][arcana][persona]["data"]["resistance"]["fire"])
@@ -216,19 +221,20 @@ class PersonaUI{
         div.appendChild(statsTable)
 
         // Fusion table
+        // currently only works for 'personas' that are fused in pairs, some persona require 3 - 5 fusions, although this number
+        // is less than 10 personas so easier to hard code these specific personas
         let fusionTable = document.createElement('table')
         fusionTable.className = 'table-fusion-persona-info table table-striped mt-5'
         fusionTable.id = "fusion-table"
         // add the data 
         fusionTable.innerHTML = `
             <thead>
-                <th>Cost</th>
                 <th>Fusion 1</th>
                 <th>Fusion 2</th>
             </thead>
         `
 
-        // TODO work out cost
+        // TODO work out cost, temp removed to look nicer
         let cost = 0
         let fusionArray = []
         let fusionArrayFull = []
@@ -238,17 +244,25 @@ class PersonaUI{
                 let fusionRow = document.createElement('tr')
                 let fusion_1 = `${fusionArray[0]}&${fusionArray[1]}`
                 let fusion_2 = `${fusionArray[1]}&${fusionArray[0]}`
+
                 fusionRow.innerHTML = `
-                    <td>¥${cost}</td>
                     <td class="personaNameTable" id="${fusion_1}">${fusionArray[0]}</td>
                     <td class="personaNameTable" id="${fusion_2}">${fusionArray[1]}</td>
                 `
                 fusionTable.appendChild(fusionRow) 
                 fusionArray = []
                 fusionArrayFull = [...fusionArrayFull, fusion_1, fusion_2]
-
- 
             } 
+        }
+
+        // if the persona is caught, such as the 'momentos gems' and not fused a warning row appears telling the user
+        if (fusionArrayFull.length == 0){
+            let fusionRow = document.createElement('tr')
+            fusionRow.innerHTML = `
+                    <td class="personaNameTable">This Persona is caught not fused</td>
+                    <td class="personaNameTable"></td>
+                `
+            fusionTable.appendChild(fusionRow) 
         }
 
         // create the fusion hide button
@@ -256,7 +270,6 @@ class PersonaUI{
         button.className = 'btn btn-outline-primary table-btn '
         button.id = "reset-fusion-display"
         button.innerHTML = '<span id="reset-fusion-display-+">-</span> Fusions'
-
                       
         div.appendChild(button)
         div.appendChild(fusionTable)
@@ -278,11 +291,14 @@ class PersonaUI{
             }
         )})
 
+        // scrolls back to top so if the user selected a low down persona, no need to manually scroll
         window.scrollTo(0, 0)
     }
 
     // sets the colour of reistances depening on its init value
     static resColour(res_type){
+        // these colours are set by half styling it, a better way used in React as to create the style and fusions as Array elements
+        // i.e res_name_return = ['black', 'rs'] then use that data in the table generator
         let res_name_return = 'black;">-'
         if (res_type == 'wk'){
             res_name_return = `red;">${res_type}`
@@ -401,6 +417,8 @@ class PersonaUI{
         }
     }
 
+    // resets all of the user inputed data back to the default settings and then reloads the table from scratch,
+    // there is probally a better way to do this as this might become load intensive on a server
     static resetDisplay(){
         document.getElementById("persona-list").innerHTML=""
         document.getElementById("search-bar").value=""
@@ -411,6 +429,8 @@ class PersonaUI{
     }
 
     // sorts tables on click
+    // copied sort code that I have used for a while which uses non es6 but it works well and is
+    // easy to modify so haven't found a reason to change it.
     static sortTable(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("persona-table");
@@ -466,6 +486,7 @@ class PersonaUI{
       }
     }
 
+    // most likely redundant 
     static sortTableCurrency(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("persona-table");
