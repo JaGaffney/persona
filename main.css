@@ -46,6 +46,20 @@
 	cursor: pointer;
 }
 
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left{
+	text-align: left;
+}
+
+.right{
+	text-align: right;
+}
+
 
 @media (max-width: 1100px) {
 	.table-btn{
